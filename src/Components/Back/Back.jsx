@@ -10,6 +10,7 @@ function Back({ show }) {
 
   const [cats, setCats] = useState(null);
   const [createCat, setCreateCat] = useState(null);
+  const [deleteCat, setDeleteCat] = useState(null);
 
   // Read
   useEffect(() => {
@@ -32,6 +33,20 @@ function Back({ show }) {
       });
   }, [createCat]);
 
+  // Delete
+  useEffect(() => {
+    if (null === deleteCat) return;
+    axios
+      .delete("http://localhost:3003/admin/cats/" + deleteCat.id)
+      .then((res) => {
+        showMessage(res.data.msg);
+        setLastUpdate(Date.now());
+      })
+      .catch((error) => {
+        showMessage({ text: error.message, type: "danger" });
+      });
+  }, [deleteCat]);
+
   const showMessage = () => {};
 
   return (
@@ -39,6 +54,7 @@ function Back({ show }) {
       value={{
         setCreateCat,
         cats,
+        setDeleteCat,
       }}
     >
       {show === "admin" ? (

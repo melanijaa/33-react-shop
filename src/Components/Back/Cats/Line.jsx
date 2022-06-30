@@ -2,10 +2,10 @@ import { useContext } from "react";
 import BackContext from "../BackContext";
 
 function Line({ line }) {
-  const { a } = useContext(BackContext);
+  const { setDeleteCat } = useContext(BackContext);
 
   const handleDelete = () => {
-    // setDeleteData(tree);
+    setDeleteCat(line);
   };
 
   const handleEdit = () => {
