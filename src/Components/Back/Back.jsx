@@ -8,6 +8,12 @@ import axios from "axios";
 function Back({ show }) {
   const [lastUpdate, setLastUpdate] = useState(Date.now());
 
+  const [messages, setMessages] = useState([
+    {id: 4646, text: 'valio', type: 'danger'},
+    {id: 6565, text: 'kuku', type: 'info'},
+    {id: 2347, text: 'zuzizibibu', type: 'success'}
+  ]);
+
   const [cats, setCats] = useState(null);
   const [createCat, setCreateCat] = useState(null);
   const [deleteCat, setDeleteCat] = useState(null);
@@ -55,6 +61,7 @@ function Back({ show }) {
         setCreateCat,
         cats,
         setDeleteCat,
+        messages
       }}
     >
       {show === "admin" ? (
