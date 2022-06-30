@@ -1,3 +1,4 @@
+import "./bootstrap.css";
 import "./App.scss";
 
 function App() {
