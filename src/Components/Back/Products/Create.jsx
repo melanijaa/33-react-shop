@@ -2,14 +2,25 @@ import { useContext, useState } from "react";
 import BackContext from "../BackContext";
 
 function Create() {
-  const { cats } = useContext(BackContext);
+  const { cats, setCreateProduct } = useContext(BackContext);
 
   const [title, setTitle] = useState("");
+  const [price, setPrice] = useState("");
+  const [inStock, setInStock] = useState(false);
+  const [cat, setCat] = useState("0");
 
   const handleCreate = () => {
-    const data = { title };
-    setCreateCat(data);
+    const data = {
+      title,
+      price: parseFloat(price),
+      inStock: inStock ? 1 : 0,
+      cat: parseInt(cat),
+    };
+    setCreateProduct(data);
     setTitle("");
+    setPrice("");
+    setInStock(false);
+    setCat("0");
   };
 
   return (
@@ -41,7 +52,13 @@ function Create() {
           <small className="form-text text-muted">Enter price.</small>
         </div>
         <div className="form-group form-check">
-          <input type="checkbox" className="form-check-input" id="in--stock" />
+          <input
+            type="checkbox"
+            className="form-check-input"
+            id="in--stock"
+            checked={inStock}
+            onChange={() => setInStock((i) => !i)}
+          />
           <label className="form-check-label" htmlFor="in--stock">
             Check me out
           </label>
@@ -50,15 +67,17 @@ function Create() {
           <label>Categories</label>
           <select
             className="form-control"
-            onChange={(e) => setType(e.target.value)}
-            value={type}
+            onChange={(e) => setCat(e.target.value)}
+            value={cat}
           >
             <option value="0">Please, select your Cat</option>
-            {cats.map((c) => (
-              <option key={c.id} value={c.id}>
-                {c.title}
-              </option>
-            ))}
+            {cats
+              ? cats.map((c) => (
+                  <option key={c.id} value={c.id}>
+                    {c.title}
+                  </option>
+                ))
+              : null}
           </select>
           <small className="form-text text-muted">Select category here.</small>
         </div>
