@@ -52,6 +52,20 @@ function Back({ show }) {
       });
   }, [deleteCat]);
 
+  // Edit
+  useEffect(() => {
+    if (null === editCat) return;
+    axios
+      .put("http://localhost:3003/admin/cats/" + editCat.id, editCat)
+      .then((res) => {
+        showMessage(res.data.msg);
+        setLastUpdate(Date.now());
+      })
+      .catch((error) => {
+        showMessage({ text: error.message, type: "danger" });
+      });
+  }, [editCat]);
+
   const showMessage = (m) => {
     const id = uuidv4();
     m.id = id;
@@ -69,7 +83,8 @@ function Back({ show }) {
         setDeleteCat,
         messages,
         setEditCat,
-        setModalCat
+        setModalCat,
+        modalCat,
       }}
     >
       {show === "admin" ? (
