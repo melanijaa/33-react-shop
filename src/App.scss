@@ -16,6 +16,18 @@ body {
       display: flex;
       align-items: center;
       justify-content: flex-start;
+      .box {
+        width: 15px;
+        height: 15px;
+        border: 1px solid coral;
+        margin: 0 10px;
+      }
+      .cat {
+        font-size: 75%;
+        color: skyblue;
+        text-decoration: underline;
+        margin: 0 0 0 40px;
+      }
     }
     .nest-content {
       display: flex;
