@@ -100,6 +100,21 @@ function Back({ show }) {
         showMessage({ text: error.message, type: "danger" });
       });
   }, [editCat]);
+  useEffect(() => {
+    if (null === editProduct) return;
+    axios
+      .put(
+        "http://localhost:3003/admin/products/" + editProduct.id,
+        editProduct
+      )
+      .then((res) => {
+        showMessage(res.data.msg);
+        setLastUpdate(Date.now());
+      })
+      .catch((error) => {
+        showMessage({ text: error.message, type: "danger" });
+      });
+  }, [editProduct]);
 
   const showMessage = (m) => {
     const id = uuidv4();

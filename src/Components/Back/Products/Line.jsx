@@ -22,6 +22,7 @@ function Line({ line }) {
             className="box"
             style={{ backgroundColor: line.in_stock ? "coral" : null }}
           ></div>
+          <span>{new Date(Date.parse(line.lu)).toLocaleString()}</span>
           <div className="cat">{line.cat}</div>
         </div>
         <div className="buttons">

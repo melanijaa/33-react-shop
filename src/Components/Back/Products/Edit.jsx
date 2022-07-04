@@ -9,14 +9,27 @@ function Edit() {
   const [price, setPrice] = useState("");
   const [inStock, setInStock] = useState(false);
   const [cat, setCat] = useState("0");
+  const [lu, setLu] = useState("");
+
+  const setDateFormat = (d) => {
+    //yyyy-MM-ddThh:mm
+    const date = new Date(Date.parse(d));
+    const y = date.getFullYear();
+    const m = ("" + (date.getMonth() + 1)).padStart(2, "0");
+    const day = ("" + date.getDate()).padStart(2, "0");
+    const h = ("" + date.getHours()).padStart(2, "0");
+    const min = ("" + date.getMinutes()).padStart(2, "0");
+    const out = y + "-" + m + "-" + day + "T" + h + ":" + min;
+    return out;
+  };
 
   useEffect(() => {
     if (null === modalProduct) {
       return;
     }
-    console.log(modalProduct);
     setTitle(modalProduct.title);
     setPrice(modalProduct.price);
+    setLu(setDateFormat(modalProduct.lu));
     setInStock(modalProduct.in_stock ? true : false);
     setCat(cats.filter((c) => c.title === modalProduct.cat)[0].id);
   }, [modalProduct, cats]);
@@ -28,6 +41,7 @@ function Edit() {
       in_stock: parseInt(inStock),
       price: parseFloat(price),
       cat: parseInt(cat),
+      lu: "2022-07-19 11:11:11",
     };
     setEditProduct(data);
     setModalProduct(null);
@@ -73,6 +87,16 @@ function Edit() {
                 value={price}
               />
               <small className="form-text text-muted">Enter price.</small>
+            </div>
+            <div className="form-group">
+              <label>Date</label>
+              <input
+                type="datetime-local"
+                className="form-control"
+                onChange={(e) => setLu(e.target.value)}
+                value={lu}
+              />
+              <small className="form-text text-muted">Enter Date.</small>
             </div>
             <div className="form-group form-check">
               <input
