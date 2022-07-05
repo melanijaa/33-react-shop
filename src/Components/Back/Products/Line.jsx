@@ -24,6 +24,11 @@ function Line({ line }) {
           ></div>
           <span>{new Date(Date.parse(line.lu)).toLocaleString()}</span>
           <div className="cat">{line.cat}</div>
+          {line.photo ? (
+            <div className="photo-bin">
+              <img src={line.photo} alt={line.title} />
+            </div>
+          ) : null}
         </div>
         <div className="buttons">
           <button
