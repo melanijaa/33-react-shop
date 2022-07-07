@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import Messages from "./Messages";
 
 function Nav() {
@@ -47,6 +47,7 @@ function Nav() {
               >
                 Products
               </NavLink>
+              <Link to="/logout">Logout</Link>
             </nav>
           </div>
         </div>
