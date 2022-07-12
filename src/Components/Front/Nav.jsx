@@ -4,7 +4,7 @@ function Nav() {
       <div className="container">
         <div className="row">
           <div className="col-12">
-            <nav className="nav">Welcomen</nav>
+            <nav className="nav">Willkommen. Ja ja das ist gut.</nav>
           </div>
         </div>
       </div>
