@@ -3,9 +3,14 @@ import FrontContext from "./FrontContext";
 
 function SortFilter() {
   const [sortBy, setSortBy] = useState("default");
-  const { setProducts, products, cats } = useContext(FrontContext);
+  const { setProducts, products, cats, setFilter } = useContext(FrontContext);
 
   const [cat, setCat] = useState(0);
+
+  const doFilter = (e) => {
+    setCat(e.target.value);
+    setFilter(parseInt(e.target.value));
+  };
 
   const doSort = (e) => {
     setSortBy(e.target.value);
@@ -66,7 +71,7 @@ function SortFilter() {
                 <label>Filter by Categories</label>
                 <select
                   className="form-control"
-                  onChange={(e) => setCat(e.target.value)}
+                  onChange={doFilter}
                   value={cat}
                 >
                   <option value="0">All Cats</option>
