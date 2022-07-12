@@ -9,12 +9,19 @@ import SortFilter from "./SortFilter";
 function Front() {
   const [products, setProducts] = useState(null);
   const [cats, setCats] = useState(null);
+  const [filter, setFilter] = useState(0);
 
   useEffect(() => {
+    let query;
+    if (filter === 0) {
+      query = "";
+    } else {
+      query = "?cat-id=" + filter;
+    }
     axios
-      .get("http://localhost:3003/products", authConfig())
+      .get("http://localhost:3003/products" + query, authConfig())
       .then((res) => setProducts(res.data.map((p, i) => ({ ...p, row: i }))));
-  }, []);
+  }, [filter]);
 
   useEffect(() => {
     axios
@@ -28,6 +35,7 @@ function Front() {
         products,
         setProducts,
         cats,
+        setFilter,
       }}
     >
       <Nav />
