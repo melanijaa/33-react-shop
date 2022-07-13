@@ -1,12 +1,19 @@
+import { useState } from "react";
 import { useContext } from "react";
 import FrontContext from "./FrontContext";
 
 function Line({ line }) {
-  const { doFilter } = useContext(FrontContext);
+  const { doFilter, setAddCom } = useContext(FrontContext);
+
+  const [com, setCom] = useState("");
+
+  const addComment = () => {
+    setAddCom({ product_id: line.id, com });
+  };
 
   return (
     <li className="list-group-item">
-      <div className="item">
+      <div className="item front">
         <div className="content">
           <b>{line.title}</b>
           <i>{line.price.toFixed(2)} EUR</i>
@@ -23,6 +30,25 @@ function Line({ line }) {
               <img src={line.photo} alt={line.title} />
             </div>
           ) : null}
+        </div>
+        <div className="comments">
+          <h5>Comments</h5>
+          <div className="form-group">
+            <label>add comment</label>
+            <textarea
+              className="form-control"
+              rows="3"
+              value={com}
+              onChange={(e) => setCom(e.target.value)}
+            ></textarea>
+          </div>
+          <button
+            type="button"
+            className="btn btn-outline-primary"
+            onClick={addComment}
+          >
+            I want to say
+          </button>
         </div>
       </div>
     </li>
