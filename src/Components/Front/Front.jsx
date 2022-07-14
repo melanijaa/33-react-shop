@@ -5,6 +5,7 @@ import { authConfig } from "../../Functions/auth";
 import axios from "axios";
 import FrontContext from "./FrontContext";
 import SortFilter from "./SortFilter";
+import { useRef } from "react";
 
 function Front() {
   const [products, setProducts] = useState(null);
@@ -18,6 +19,10 @@ function Front() {
   const [addCom, setAddCom] = useState(null);
 
   const [lastUpdate, setLastUpdate] = useState(Date.now());
+
+  const [cur, setCur] = useState(null);
+
+  const [nowCur, setNowCur] = useState(null);
 
   const doFilter = (cid) => {
     setCat(cid);
@@ -74,6 +79,12 @@ function Front() {
   }, []);
 
   useEffect(() => {
+    axios
+      .get("http://localhost:3003/cur", authConfig())
+      .then((res) => setCur(res.data));
+  }, []);
+
+  useEffect(() => {
     if (null === addCom) return;
     axios
       .post("http://localhost:3003/comments", addCom, authConfig())
@@ -81,6 +92,16 @@ function Front() {
         setLastUpdate(Date.now());
       });
   }, [addCom]);
+
+  useEffect(() => {
+    if (null === nowCur) return;
+
+    const value = cur.filter((c) => c.code === nowCur)[0].value;
+
+    setProducts((pr) =>
+      pr.map((p) => ({ ...p, cur: nowCur, curVal: p.price * value }))
+    );
+  }, [nowCur]);
 
   return (
     <FrontContext.Provider
@@ -94,6 +115,8 @@ function Front() {
         doFilter,
         setSearch,
         setAddCom,
+        cur,
+        setNowCur,
       }}
     >
       <Nav />
